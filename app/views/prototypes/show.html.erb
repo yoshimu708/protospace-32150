@@ -4,7 +4,7 @@
       <p class="prototype__hedding">
         <%=@prototype.title%>
       </p>
-      <%= link_to "by #{@prototype.user.name}", "/users/#{current_user.id}", class: :prototype__user %>
+      <%= link_to "by #{@prototype.user.name}","/users/#{@prototype.user_id}", class: :prototype__user %>
       <%# プロトタイプの投稿者とログインしているユーザーが同じであれば以下を表示する %>
       <% if user_signed_in? && current_user.id == @prototype.user.id %>
         <div class="prototype__manage">
@@ -46,19 +46,19 @@
         <%# // ログインしているユーザーには上記を表示する %>
         
          <ul class="comments_lists">
-           <h4>＜コメント一覧＞</h4>
-           
           <%# 投稿に紐づくコメントを一覧する処理を記述する %>
-            <li class="comments_list">
+            
               <% if @comments %>
                 <% @comments.each do |comment| %>
+                  <li class="comments_list">
                   <p>
-                  <strong><%= link_to comment.user.name, "/users/#{comment.user_id}" %>：</strong>
                   <%= comment.text %>
+                  <strong>(<%= link_to comment.user.name, "/users/#{comment.user_id}" %>)</strong>
                   </p>
-                <% end %>
+                  </li>
+                <% end %>  
              <% end %>
-            </li>
+            
             
           <%# // 投稿に紐づくコメントを一覧する処理を記述する %>
 
